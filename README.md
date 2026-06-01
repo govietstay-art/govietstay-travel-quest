@@ -2,14 +2,17 @@
 
 A Pi-friendly Vietnam travel adventure game powered by GoVietStay.
 
-## V1.3
+## V1.4
 
-- Level system
-- Mock leaderboard
-- Happy Travelers section
-- Pi Friendly / CiDi Games Ready section
-- Better result screen
-- WhatsApp-first CTA
+- Real XP system
+- Real level progression
+- Explorer Passport
+- Achievements
+- Unlockable badges
+- Reward voucher
+- Hall of Fame
+- Happy Travelers
+- Pi Friendly / CiDi Games Ready roadmap
 
 Website: https://govietstay8009.pinet.com/  
 WhatsApp: +84 937 762 607
