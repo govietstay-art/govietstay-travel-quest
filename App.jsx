@@ -9,7 +9,8 @@ import {
   RotateCcw,
   Gift,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  Palmtree
 } from "lucide-react";
 
 const WHATSAPP =
@@ -28,11 +29,7 @@ const quests = [
     story:
       "Your journey begins by the sea. A trusted local friend is waiting to guide you through Da Nang.",
     question: "What should a traveler do first when arriving in Da Nang?",
-    answers: [
-      "Find trusted local support",
-      "Rush without planning",
-      "Ignore local advice"
-    ],
+    answers: ["Find trusted local support", "Rush without planning", "Ignore local advice"],
     correct: 0,
     reward: "Beach Explorer Badge"
   },
@@ -46,11 +43,7 @@ const quests = [
     story:
       "You follow the coastal road toward Son Tra, where ocean wind, forest and mountain views meet.",
     question: "What is Son Tra best known for?",
-    answers: [
-      "Nature, viewpoints and local wildlife",
-      "Snow mountains",
-      "Desert safari"
-    ],
+    answers: ["Nature, viewpoints and local wildlife", "Snow mountains", "Desert safari"],
     correct: 0,
     reward: "Nature Guardian Badge"
   },
@@ -78,11 +71,7 @@ const quests = [
     story:
       "You reach Hoi An, where lanterns, old houses and quiet streets create a timeless travel memory.",
     question: "What is Hoi An famous for?",
-    answers: [
-      "Lanterns and ancient town atmosphere",
-      "Ice castles",
-      "Volcano trekking"
-    ],
+    answers: ["Lanterns and ancient town atmosphere", "Ice castles", "Volcano trekking"],
     correct: 0,
     reward: "Lantern Walker Badge"
   },
@@ -101,6 +90,15 @@ const quests = [
     reward: "Golden Explorer Badge"
   }
 ];
+
+function LogoMark() {
+  return (
+    <div className="brandLogo" aria-label="GoVietStay logo">
+      <Compass size={34} />
+      <Palmtree size={18} className="miniPalm" />
+    </div>
+  );
+}
 
 export default function App() {
   const [started, setStarted] = useState(false);
@@ -155,9 +153,7 @@ export default function App() {
     return (
       <main className="app heroPage">
         <section className="heroCard">
-          <div className="logoMark">
-            <Compass size={38} />
-          </div>
+          <LogoMark />
 
           <p className="eyebrow">Powered by GoVietStay</p>
           <h1>GoVietStay Travel Quest</h1>
@@ -167,16 +163,18 @@ export default function App() {
             Earn badges, unlock local memories and connect with a trusted local friend.
           </p>
 
-          <input
-            className="nameInput"
-            value={player}
-            onChange={(event) => setPlayer(event.target.value)}
-            placeholder="Traveler name (optional)"
-          />
+          <div className="startRow">
+            <input
+              className="nameInput"
+              value={player}
+              onChange={(event) => setPlayer(event.target.value)}
+              placeholder="Traveler name (optional)"
+            />
 
-          <button className="primaryBtn" onClick={() => setStarted(true)}>
-            Start Journey
-          </button>
+            <button className="primaryBtn" onClick={() => setStarted(true)}>
+              Start Journey
+            </button>
+          </div>
 
           <div className="trustRow">
             <span>Private Tours</span>
@@ -197,7 +195,7 @@ export default function App() {
     return (
       <main className="app resultPage">
         <section className="resultCard">
-          <Trophy className="trophyIcon" size={62} />
+          <LogoMark />
 
           <p className="eyebrow">Quest Completed</p>
           <h1>{player || "Traveler"}, you are a {rank}</h1>

@@ -2,29 +2,13 @@
 
 A Pi-friendly Vietnam travel adventure game powered by GoVietStay.
 
-## V1.1 Features
+## V1.2
 
-- Vietnam travel quest
-- Da Nang / Hoi An / Ba Na Hills route
-- Map-style gameplay
-- Score system
-- Badge system
-- Traveler rank
-- WhatsApp CTA
-- GoVietStay website CTA
-- Mobile-first design
-- Coming soon notes for Pi SDK, leaderboard and CiDi Games submission
-
-## Roadmap
-
-- V2: Pi SDK login
-- V3: leaderboard database
-- V4: reward system
-- V5: CiDi Games submission
-
-## Brand
-
-GoVietStay = Trusted local friend in Vietnam.
+- Better result screen spacing
+- GoVietStay branded logo mark
+- WhatsApp-first CTA
+- Pi SDK / CiDi Games coming soon badge
+- Mobile and desktop responsive layout
 
 Website: https://govietstay8009.pinet.com/  
 WhatsApp: +84 937 762 607
