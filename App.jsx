@@ -10,7 +10,12 @@ import {
   Gift,
   ShieldCheck,
   Sparkles,
-  Palmtree
+  Palmtree,
+  Rocket,
+  Users,
+  Medal,
+  Gamepad2,
+  Coins
 } from "lucide-react";
 
 const WHATSAPP =
@@ -91,12 +96,96 @@ const quests = [
   }
 ];
 
+const baseLeaderboard = [
+  { name: "Elena RU", country: "🇷🇺", score: 480, level: "Level 5" },
+  { name: "Thomas DE", country: "🇩🇪", score: 450, level: "Level 5" },
+  { name: "Alina KZ", country: "🇰🇿", score: 430, level: "Level 5" },
+  { name: "Explorer VN", country: "🇻🇳", score: 400, level: "Level 4" }
+];
+
+const happyTravelers = [
+  { flag: "🇷🇺", name: "Elena", trip: "Hoi An Private Tour", note: "Lantern night, calm streets and trusted local support." },
+  { flag: "🇰🇿", name: "Alina", trip: "Dong Giang Adventure", note: "A mountain escape with local guide care." },
+  { flag: "🇩🇪", name: "Thomas", trip: "Da Nang Discovery", note: "Beach, city lights and flexible WhatsApp support." }
+];
+
 function LogoMark() {
   return (
     <div className="brandLogo" aria-label="GoVietStay logo">
       <Compass size={34} />
       <Palmtree size={18} className="miniPalm" />
     </div>
+  );
+}
+
+function getLevel(score) {
+  if (score >= 500) return { level: 5, title: "Legend Explorer", label: "GoVietStay Master", percent: 100 };
+  if (score >= 400) return { level: 4, title: "Local Expert", label: "Trusted Vietnam Explorer", percent: 80 };
+  if (score >= 300) return { level: 3, title: "City Adventurer", label: "Da Nang Friend", percent: 60 };
+  if (score >= 200) return { level: 2, title: "Nature Explorer", label: "Curious Traveler", percent: 40 };
+  return { level: 1, title: "Beach Explorer", label: "New Traveler", percent: 20 };
+}
+
+function InfoPanels({ player, score }) {
+  const level = getLevel(score || 500);
+  const leaderboard = [
+    { name: player || "You", country: "🌴", score: score || 500, level: `Level ${level.level}` },
+    ...baseLeaderboard
+  ].sort((a, b) => b.score - a.score);
+
+  return (
+    <section className="infoGrid">
+      <div className="infoCard">
+        <div className="sectionTitle">
+          <Medal size={20} />
+          <h3>Top Travelers</h3>
+        </div>
+        <div className="leaderboard">
+          {leaderboard.map((item, index) => (
+            <div className="leaderRow" key={item.name}>
+              <strong>#{index + 1}</strong>
+              <span>{item.country}</span>
+              <div>
+                <b>{item.name}</b>
+                <small>{item.level}</small>
+              </div>
+              <em>{item.score}</em>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="infoCard">
+        <div className="sectionTitle">
+          <Users size={20} />
+          <h3>Happy Travelers</h3>
+        </div>
+        <div className="travelerList">
+          {happyTravelers.map((t) => (
+            <div className="travelerMemory" key={t.name}>
+              <span>{t.flag}</span>
+              <div>
+                <b>{t.name}</b>
+                <small>{t.trip}</small>
+                <p>{t.note}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="infoCard piCard">
+        <div className="sectionTitle">
+          <Gamepad2 size={20} />
+          <h3>Pi Friendly Roadmap</h3>
+        </div>
+        <div className="roadmapItems">
+          <span><Coins size={16} /> Pi SDK Login Coming Soon</span>
+          <span><Trophy size={16} /> Online Leaderboard Next</span>
+          <span><Rocket size={16} /> CiDi Games Submission Ready</span>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -111,14 +200,7 @@ export default function App() {
 
   const quest = quests[current];
   const progress = Math.round((badges.length / quests.length) * 100);
-
-  const rank = useMemo(() => {
-    if (score >= 500) return "Legend Local Explorer";
-    if (score >= 400) return "Trusted Vietnam Explorer";
-    if (score >= 300) return "Da Nang Friend";
-    if (score >= 200) return "Curious Traveler";
-    return "New Traveler";
-  }, [score]);
+  const level = useMemo(() => getLevel(score), [score]);
 
   function answer(index) {
     if (selected !== null) return;
@@ -184,7 +266,7 @@ export default function App() {
 
           <div className="comingSoon">
             <Sparkles size={16} />
-            <p>Coming soon: Pi SDK Login • Leaderboard • CiDi Games Submission</p>
+            <p>Pi Friendly • Leaderboard • CiDi Games Ready</p>
           </div>
         </section>
       </main>
@@ -194,15 +276,27 @@ export default function App() {
   if (finished) {
     return (
       <main className="app resultPage">
-        <section className="resultCard">
+        <section className="resultCard wide">
           <LogoMark />
 
           <p className="eyebrow">Quest Completed</p>
-          <h1>{player || "Traveler"}, you are a {rank}</h1>
+          <h1>{player || "Traveler"}, you reached Level {level.level}</h1>
 
-          <div className="scoreBox">
-            <span>Final Score</span>
-            <strong>{score}</strong>
+          <div className="levelHero">
+            <div>
+              <span>Current Level</span>
+              <strong>LEVEL {level.level}</strong>
+              <p>{level.title}</p>
+            </div>
+            <div>
+              <span>Final Score</span>
+              <strong>{score}</strong>
+              <p>{level.label}</p>
+            </div>
+          </div>
+
+          <div className="levelBar">
+            <div style={{ width: `${level.percent}%` }} />
           </div>
 
           <h2>Your Travel Badges</h2>
@@ -234,6 +328,8 @@ export default function App() {
             </a>
           </div>
 
+          <InfoPanels player={player} score={score} />
+
           <button className="ghostBtn" onClick={resetGame}>
             <RotateCcw size={17} />
             Play Again
@@ -254,6 +350,7 @@ export default function App() {
         <div className="scoreMini">
           <Trophy size={18} />
           <strong>{score}</strong>
+          <small>Level {level.level}</small>
         </div>
       </section>
 

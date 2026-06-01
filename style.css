@@ -45,7 +45,8 @@ a {
   text-align: center;
 }
 
-.resultCard {
+.resultCard.wide {
+  width: min(980px, 100%);
   padding-top: 24px;
   margin: 20px auto;
 }
@@ -91,7 +92,7 @@ a {
 
 .resultCard h1 {
   font-size: clamp(28px, 4.3vw, 48px);
-  max-width: 680px;
+  max-width: 780px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -197,13 +198,19 @@ a {
 }
 
 .scoreMini {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
-  gap: 8px;
+  gap: 2px 8px;
   padding: 12px 16px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.09);
   border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.scoreMini small {
+  grid-column: 1 / -1;
+  color: #f3c66d;
 }
 
 .mapCard,
@@ -287,7 +294,8 @@ a {
   overflow: hidden;
 }
 
-.progressLine div {
+.progressLine div,
+.levelBar div {
   height: 100%;
   background: linear-gradient(90deg, #38d695, #f4c75d);
 }
@@ -385,24 +393,44 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-.trophyIcon {
-  color: #f6ca63;
-  margin-top: 2px;
+.levelHero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px auto;
+  max-width: 680px;
 }
 
-.scoreBox {
-  margin: 16px auto 22px;
+.levelHero div {
   padding: 18px;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.08);
-  display: grid;
-  gap: 4px;
-  max-width: 260px;
 }
 
-.scoreBox strong {
-  font-size: 46px;
+.levelHero span {
+  color: #dff8ee;
+}
+
+.levelHero strong {
+  display: block;
+  font-size: clamp(30px, 5vw, 52px);
   color: #f7cd67;
+  margin: 6px 0;
+}
+
+.levelHero p {
+  margin: 0;
+  color: #eaf7f1;
+  font-weight: 700;
+}
+
+.levelBar {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  overflow: hidden;
+  max-width: 680px;
+  margin: 0 auto 22px;
 }
 
 .badgeGrid {
@@ -446,7 +474,92 @@ a {
   min-width: 170px;
 }
 
-@media (max-width: 640px) {
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 24px;
+  text-align: left;
+}
+
+.infoCard {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.piCard {
+  grid-column: 1 / -1;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f3c66d;
+  margin-bottom: 12px;
+}
+
+.sectionTitle h3 {
+  margin: 0;
+}
+
+.leaderboard,
+.travelerList,
+.roadmapItems {
+  display: grid;
+  gap: 10px;
+}
+
+.leaderRow {
+  display: grid;
+  grid-template-columns: 36px 34px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.leaderRow small,
+.travelerMemory small {
+  display: block;
+  color: #dff8ee;
+}
+
+.leaderRow em {
+  color: #f7cd67;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.travelerMemory {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.travelerMemory span {
+  font-size: 24px;
+}
+
+.travelerMemory p {
+  margin: 6px 0 0;
+  color: #eaf7f1;
+}
+
+.roadmapItems span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #eaf7f1;
+}
+
+@media (max-width: 720px) {
   .app {
     padding: 14px;
   }
@@ -460,7 +573,7 @@ a {
   }
 
   .heroCard,
-  .resultCard {
+  .resultCard.wide {
     padding: 24px;
   }
 
@@ -495,5 +608,10 @@ a {
 
   .resultCard h1 {
     font-size: 32px;
+  }
+
+  .levelHero,
+  .infoGrid {
+    grid-template-columns: 1fr;
   }
 }
